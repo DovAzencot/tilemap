@@ -7,6 +7,7 @@ import { terrainMap } from './TileEngine/TerrainMap';
 import { items } from './TileEngine/ItemsMap';
 import { MovableItems } from './TileEngine/MoveableItems';
 import { terrain } from './TileEngine/TileMapProcessor';
+import Draggable from "react-draggable";
 
 const tileWidth = 100;
 var subterrain;
@@ -172,7 +173,7 @@ class App extends React.Component {
       // console.log("x:" + tile.x + " y:" + tile.y);
       const tileId = terrain[tile.y][tile.x]
       const modal = this.refs.myModal
-      modal.style.display = "block";
+      modal.style.display = "none";
       this.refs.modalImage.src =  TileSwitcher(tileId, this.refs).src;
     }
    
@@ -211,6 +212,11 @@ class App extends React.Component {
   render() {
     return(
       <div className="center">
+           <Draggable>
+        <div className="drag-wrapper">
+       
+        </div>
+      </Draggable>
 
         {/* <!-- The Modal --> */}
         <div ref="myModal" id="myModal" className="modal">
@@ -219,13 +225,19 @@ class App extends React.Component {
           <span className="close" onClick={() => {this.refs.myModal.style.display = "none"}}>&times;</span>
 
           {/* <!-- Modal Content (The Image) --> */}
-          <img  ref="modalImage" className="modal-content" id="img01"/>
+          <img  ref="modalImage" className="modal-content" id="img01"  />
 
           {/* <!-- Modal Caption (Image Text) --> */}
           <div id="caption"></div>
         </div>
 
-        <canvas ref="canvas" id="canvas" width={1000} height={500} />
+        <Draggable>
+        <div className="drag-wrapper">
+       <canvas ref="canvas" id="canvas" width={1000} height={600} />
+        </div>
+      </Draggable>
+  
+         
 
         <img alt="" ref="grass" src={require("./images/grass.png")} className="hidden"/>
         <img alt="" ref="dirt" src={require("./images/dirt.png")} className="hidden"/>
